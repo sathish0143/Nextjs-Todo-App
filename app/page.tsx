@@ -12,45 +12,16 @@ import {
   IModelType,
   ISimpleType,
   IStateTreeNode,
+  toGeneratorFunction,
 } from "mobx-state-tree";
 //!react import
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
 //!declare schemes
-/* const TodoModel = types
-  .model("Todo", {
-    id: types.identifier,
-    title: types.string,
-    description: types.string,
-    status: types.enumeration(["To Do", "In Progress", "Completed"]),
-  })
-  .actions((self) => ({
-    toggle() {
-      if (self.status === "To Do") {
-        self.setStatus("In Progress");
-      } else if (self.status === "In Progress") {
-        self.setStatus("Completed");
-      } else {
-        self.setStatus("To Do");
-      }
-    },
-    setStatus(status: string) {
-      self.status = status;
-    },
-    updateTitleAndDescription(title: string, description: string) {
-      self.title = title;
-      self.description = description;
-    },
-    deleteTodo() {
-      const parent = getParentOfType(self, TodoAppModel);
-      parent.deleteTodoById(self.id);
-    },
-  }));
- */
 
 const TodoModel = types
-  .model("Todo", {
+  .model("Home", {
     id: types.identifier,
     title: types.string,
     description: types.string,
@@ -58,16 +29,19 @@ const TodoModel = types
   })
   .actions((self) => ({
     toggle() {
+      console.log(self.status);
+
       if (self.status === "To Do") {
-        self.setStatus("In Progress");
+        this.setStatus("In Progress");
       } else if (self.status === "In Progress") {
-        self.setStatus("Completed");
+        this.setStatus("Completed");
       } else {
-        self.setStatus("To Do");
+        this.setStatus("To Do");
       }
     },
-    setStatus(this: ITodoModel, status: "To Do" | "In Progress" | "Completed") {
+    setStatus(status: "To Do" | "In Progress" | "Completed") {
       self.status = status;
+      console.log("seted");
     },
     updateTitleAndDescription(title: string, description: string) {
       self.title = title;
@@ -78,8 +52,6 @@ const TodoModel = types
       parent.deleteTodoById(self.id);
     },
   }));
-
-interface ITodoModel extends ReturnType<typeof TodoModel> {}
 
 //! create unique id for every task creation
 
@@ -98,11 +70,15 @@ const TodoAppModel = types
       self.todos.push(newTodo);
     },
     deleteTodoById: (id: string) => {
-      self.todos = self.todos.filter((todo) => todo.id !== id);
+      console.log(self, todoAppStore, todoAppStore.todos);
+
+      //todoAppStore.todos = todoAppStore.todos.filter((todo) => todo.id !== id);
     },
   }));
 
 const todoAppStore = TodoAppModel.create({ todos: [] });
+console.log(todoAppStore);
+
 //! main function with react hooks
 
 const Home = observer(() => {
