@@ -6,14 +6,19 @@ import "./globals.css";
 
 //!MST import
 import { observer } from "mobx-react-lite";
-import { types, getParentOfType } from "mobx-state-tree";
-
+import {
+  types,
+  getParentOfType,
+  IModelType,
+  ISimpleType,
+  IStateTreeNode,
+} from "mobx-state-tree";
 //!react import
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
 //!declare schemes
-const TodoModel = types
+/* const TodoModel = types
   .model("Todo", {
     id: types.identifier,
     title: types.string,
@@ -42,6 +47,39 @@ const TodoModel = types
       parent.deleteTodoById(self.id);
     },
   }));
+ */
+
+const TodoModel = types
+  .model("Todo", {
+    id: types.identifier,
+    title: types.string,
+    description: types.string,
+    status: types.enumeration(["To Do", "In Progress", "Completed"]),
+  })
+  .actions((self) => ({
+    toggle() {
+      if (self.status === "To Do") {
+        self.setStatus("In Progress");
+      } else if (self.status === "In Progress") {
+        self.setStatus("Completed");
+      } else {
+        self.setStatus("To Do");
+      }
+    },
+    setStatus(this: ITodoModel, status: "To Do" | "In Progress" | "Completed") {
+      self.status = status;
+    },
+    updateTitleAndDescription(title: string, description: string) {
+      self.title = title;
+      self.description = description;
+    },
+    deleteTodo() {
+      const parent = getParentOfType(self, TodoAppModel);
+      parent.deleteTodoById(self.id);
+    },
+  }));
+
+interface ITodoModel extends ReturnType<typeof TodoModel> {}
 
 //! create unique id for every task creation
 
