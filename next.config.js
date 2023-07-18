@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
 
-const path = require("path");
-
 const nextConfig = {
   output: "export",
+  experimental: {
+    externalDir:
+      true |
+      {
+        enabled: true,
+        silent: true,
+      },
+  },
 };
 
 module.exports = nextConfig;
