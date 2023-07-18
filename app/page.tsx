@@ -72,7 +72,7 @@ const TodoAppModel = types
     deleteTodoById: (id: string) => {
       console.log(self, todoAppStore, todoAppStore.todos);
 
-      //todoAppStore.todos = todoAppStore.todos.filter((todo) => todo.id !== id);
+      self.todos = self.todos.filter((todo) => todo.id !== id);
     },
   }));
 
