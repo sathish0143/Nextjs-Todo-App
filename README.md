@@ -1,6 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Hello user,
+
+This webapp developed by Sathish.R.
+You can follow below mentioned steps to run this assignment.
+
+User guide,
+
+As the assignment guidelines this app was created with page responsive and creative design.
 
 ## Getting Started
+
+step 1:
 
 First, run the development server:
 
@@ -10,9 +19,35 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+step 2:
+
+ after the successful render,you can see the UI
+
+step 3:
+
+there are two input area provided.first input you can enter the short and crisp title and then follows discription.
+
+
+step 4:
+after the successful entry hit the add button.it will store on local storage using state variable.
+
+step 5:
+
+after the 4th step.tasks are listed in bottom of the page.you can edit or delete using the buttons.
+
+even you can see status column in the table.when you click it will toggle TODO-In Progres-Completed
+
+when the completed was occurs it will changed into strikeout lines
+
+when  the task was complete you can delete or modify the tasks.
+
+Thank you.
+
+
+```
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
